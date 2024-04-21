@@ -791,7 +791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.24":
+"@types/react-dom@npm:^18.2.25":
   version: 18.2.25
   resolution: "@types/react-dom@npm:18.2.25"
   dependencies:
@@ -800,7 +800,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.2.74":
+"@types/react@npm:*, @types/react@npm:^18.2.79":
   version: 18.2.79
   resolution: "@types/react@npm:18.2.79"
   dependencies:
@@ -2986,8 +2986,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vitets-react-game@workspace:."
   dependencies:
-    "@types/react": "npm:^18.2.74"
-    "@types/react-dom": "npm:^18.2.24"
+    "@types/react": "npm:^18.2.79"
+    "@types/react-dom": "npm:^18.2.25"
     "@typescript-eslint/eslint-plugin": "npm:^7.5.0"
     "@typescript-eslint/parser": "npm:^7.5.0"
     "@vitejs/plugin-react": "npm:^4.2.1"

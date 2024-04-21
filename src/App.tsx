@@ -1,13 +1,11 @@
 import "./App.css";
-import Game12_3_4 from "./components/Game12_3_4";
-
+import Game from "./components/Game";
 function App() {
   return (
-    <>
-      <Game12_3_4 />
+    <div>
+      <Game />
       <p className="read-the-docs">Made with love by GP</p>
-    </>
+    </div>
   );
 }
-
 export default App;
