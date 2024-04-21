@@ -1,3 +1,6 @@
 node_modules
-*.pnp.*
+
+#stackblitz files
+.pnp.cjs
+.pnp.loader.mjs
 .yarn
