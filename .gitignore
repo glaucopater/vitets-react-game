@@ -3,4 +3,5 @@ node_modules
 #stackblitz files
 .pnp.cjs
 .pnp.loader.mjs
-.yarn
+
+dist

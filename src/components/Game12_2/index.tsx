@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Modal from '../Modal'; // Adjust the path accordingly
+import React, { useState, useEffect, useRef } from "react";
+import Modal from "../Modal"; // Adjust the path accordingly
 
 const App: React.FC = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 }); // Set initial player position to the center
   const [enemies, setEnemies] = useState<{ x: number; y: number }[]>([]);
   const [enemyCount, setEnemyCount] = useState(0); // Track the number of enemies
   const [isGameOver, setIsGameOver] = useState(false);
-  const [mouseClicked, setMouseClicked] = useState(false);
+  const [, setMouseClicked] = useState(false);
   const playerPositionRef = useRef({ x: 9, y: 9 });
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
@@ -21,16 +21,16 @@ const App: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isGameOver) return; // Disable movement when game is over
       switch (e.key) {
-        case 'ArrowUp':
+        case "ArrowUp":
           setPosition((prev) => ({ ...prev, y: Math.max(0, prev.y - 1) }));
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           setPosition((prev) => ({ ...prev, y: Math.min(19, prev.y + 1) }));
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           setPosition((prev) => ({ ...prev, x: Math.max(0, prev.x - 1) }));
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           setPosition((prev) => ({ ...prev, x: Math.min(19, prev.x + 1) }));
           break;
         default:
@@ -38,10 +38,10 @@ const App: React.FC = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isGameOver]);
 
@@ -128,14 +128,14 @@ const App: React.FC = () => {
   const handleMouseEnter = () => {
     // Change cursor to pointer and add target emoji when hovering over the game area
     if (gameAreaRef.current) {
-      gameAreaRef.current.style.cursor = 'pointer';
+      gameAreaRef.current.style.cursor = "pointer";
     }
   };
 
   const handleMouseLeave = () => {
     // Reset cursor style when leaving the game area
     if (gameAreaRef.current) {
-      gameAreaRef.current.style.cursor = 'auto';
+      gameAreaRef.current.style.cursor = "auto";
     }
   };
 
@@ -145,10 +145,10 @@ const App: React.FC = () => {
       <div
         ref={gameAreaRef}
         style={{
-          position: 'relative',
-          width: '400px',
-          height: '400px',
-          border: '1px solid black',
+          position: "relative",
+          width: "400px",
+          height: "400px",
+          border: "1px solid black",
         }}
         onClick={handleMouseClick}
         onMouseEnter={handleMouseEnter}
@@ -157,12 +157,12 @@ const App: React.FC = () => {
         {/* Render player */}
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: `${position.y * 20}px`,
             left: `${position.x * 20}px`,
-            width: '20px',
-            height: '20px',
-            backgroundColor: 'red',
+            width: "20px",
+            height: "20px",
+            backgroundColor: "red",
           }}
         />
 
@@ -171,12 +171,12 @@ const App: React.FC = () => {
           <div
             key={index}
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: `${enemy.y * 20}px`,
               left: `${enemy.x * 20}px`,
-              width: '20px',
-              height: '20px',
-              backgroundColor: 'blue',
+              width: "20px",
+              height: "20px",
+              backgroundColor: "blue",
             }}
           />
         ))}
@@ -185,11 +185,11 @@ const App: React.FC = () => {
         {gameAreaRef.current && (
           <div
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: '30px',
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              fontSize: "30px",
             }}
           >
             🎯

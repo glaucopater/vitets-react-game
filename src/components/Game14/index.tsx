@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Modal from '../Modal'; // Adjust the path accordingly
+import React, { useState, useEffect, useRef } from "react";
+import Modal from "../Modal"; // Adjust the path accordingly
 
 // infinite loop, enemies not moving or spanwing
 
@@ -28,16 +28,16 @@ const App: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isGameOver) return; // Disable movement when game is over
       switch (e.key) {
-        case 'ArrowUp':
+        case "ArrowUp":
           setPosition((prev) => ({ ...prev, y: Math.max(0, prev.y - 1) }));
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           setPosition((prev) => ({ ...prev, y: Math.min(19, prev.y + 1) }));
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           setPosition((prev) => ({ ...prev, x: Math.max(0, prev.x - 1) }));
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           setPosition((prev) => ({ ...prev, x: Math.min(19, prev.x + 1) }));
           break;
         default:
@@ -45,10 +45,10 @@ const App: React.FC = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isGameOver]);
 
@@ -172,22 +172,22 @@ const App: React.FC = () => {
       <h1>Move the character with arrow keys</h1>
       <div
         style={{
-          position: 'relative',
-          width: '400px',
-          height: '400px',
-          border: '1px solid black',
+          position: "relative",
+          width: "400px",
+          height: "400px",
+          border: "1px solid black",
         }}
         onClick={handleMouseClick}
       >
         {/* Render player */}
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: `${position.y * 20}px`,
             left: `${position.x * 20}px`,
-            width: '20px',
-            height: '20px',
-            backgroundColor: 'red',
+            width: "20px",
+            height: "20px",
+            backgroundColor: "red",
           }}
         />
 
@@ -196,12 +196,12 @@ const App: React.FC = () => {
           <div
             key={index}
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: `${enemy.y * 20}px`,
               left: `${enemy.x * 20}px`,
-              width: '20px',
-              height: '20px',
-              backgroundColor: 'blue',
+              width: "20px",
+              height: "20px",
+              backgroundColor: "blue",
             }}
           />
         ))}
@@ -211,12 +211,12 @@ const App: React.FC = () => {
           <div
             key={index}
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: `${bullet.y * 20}px`,
               left: `${bullet.x * 20}px`,
-              width: '5px',
-              height: '5px',
-              backgroundColor: 'yellow',
+              width: "5px",
+              height: "5px",
+              backgroundColor: "yellow",
             }}
           />
         ))}
