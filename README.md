@@ -1,5 +1,7 @@
 # React + TypeScript + Vite = Game!
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/43279ffe-701c-4a87-82ec-d1c860db5ccd/deploy-status)](https://app.netlify.com/sites/vitets-react-game/deploys)
+
 1. **Movement**: Use the arrow keys on your keyboard to move the character (represented by a red square) up, down, left, or right within the game area.
 
 2. **Shooting Enemies**: Click anywhere within the game area to shoot enemies. Aim at the blue squares to eliminate them. Each time you successfully shoot an enemy, your score will increase.
