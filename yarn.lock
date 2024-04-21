@@ -2942,25 +2942,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-react-typescript-starter@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "vite-react-typescript-starter@workspace:."
-  dependencies:
-    "@types/react": "npm:^18.2.74"
-    "@types/react-dom": "npm:^18.2.24"
-    "@typescript-eslint/eslint-plugin": "npm:^7.5.0"
-    "@typescript-eslint/parser": "npm:^7.5.0"
-    "@vitejs/plugin-react": "npm:^4.2.1"
-    eslint: "npm:^8.57.0"
-    eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-react-refresh: "npm:^0.4.6"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    typescript: "npm:^5.2.2"
-    vite: "npm:^5.2.8"
-  languageName: unknown
-  linkType: soft
-
 "vite@npm:^5.2.8":
   version: 5.2.10
   resolution: "vite@npm:5.2.10"
@@ -3000,6 +2981,25 @@ __metadata:
   checksum: 10c0/d50630ac8de807a6185cd9b5763b3969b2950a454cf6a4482f3780f183865e8d6f7e3aa57dd70ede1c493aaa861efb25b43562287efbcf8b471b7f3b88857a33
   languageName: node
   linkType: hard
+
+"vitets-react-game@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "vitets-react-game@workspace:."
+  dependencies:
+    "@types/react": "npm:^18.2.74"
+    "@types/react-dom": "npm:^18.2.24"
+    "@typescript-eslint/eslint-plugin": "npm:^7.5.0"
+    "@typescript-eslint/parser": "npm:^7.5.0"
+    "@vitejs/plugin-react": "npm:^4.2.1"
+    eslint: "npm:^8.57.0"
+    eslint-plugin-react-hooks: "npm:^4.6.0"
+    eslint-plugin-react-refresh: "npm:^0.4.6"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    typescript: "npm:^5.2.2"
+    vite: "npm:^5.2.8"
+  languageName: unknown
+  linkType: soft
 
 "which@npm:^2.0.1":
   version: 2.0.2
