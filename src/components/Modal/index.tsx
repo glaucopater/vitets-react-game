@@ -21,6 +21,7 @@ const Modal = ({ isOpen, children }: ModalProps) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        opacity: 0.7,
       }}
     >
       <div
@@ -29,6 +30,7 @@ const Modal = ({ isOpen, children }: ModalProps) => {
           padding: "20px",
           borderRadius: "5px",
           color: "#111",
+          width: "30%",
         }}
       >
         {children}

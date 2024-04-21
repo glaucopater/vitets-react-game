@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "../Modal"; // Adjust the path accordingly
+import { Player } from "../Player";
+import { Enemy } from "../Enemy";
 
 const Game: React.FC = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 }); // Set initial player position to the center
@@ -145,35 +147,17 @@ const Game: React.FC = () => {
           width: "400px",
           height: "400px",
           border: "1px solid black",
+          background: "lightgray",
           cursor: "crosshair", // Change cursor to crosshair within the game area
         }}
         onClick={handleMouseClick} // Handle mouse clicks to shoot enemies
       >
         {/* Render player */}
-        <div
-          style={{
-            position: "absolute",
-            top: `${position.y * 20}px`,
-            left: `${position.x * 20}px`,
-            width: "20px",
-            height: "20px",
-            backgroundColor: "red",
-          }}
-        />
+        <Player position={position} isGameOver={isGameOver} />
 
         {/* Render enemies */}
         {enemies.map((enemy, index) => (
-          <div
-            key={index}
-            style={{
-              position: "absolute",
-              top: `${enemy.y * 20}px`,
-              left: `${enemy.x * 20}px`,
-              width: "20px",
-              height: "20px",
-              backgroundColor: "blue",
-            }}
-          />
+          <Enemy key={index} enemy={enemy} />
         ))}
       </div>
 
