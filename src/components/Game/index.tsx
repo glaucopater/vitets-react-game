@@ -2,10 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "../Modal"; // Adjust the path accordingly
 import { Player } from "../Player";
 import { Enemy } from "../Enemy";
+import {
+  DEFAULT_ENEMY_DAMAGE,
+  PLAYER_MAX_HEALTH,
+  WIN_SCORE,
+} from "../../constants";
 
 const Game: React.FC = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 }); // Set initial player position to the center
   const [enemies, setEnemies] = useState<{ x: number; y: number }[]>([]);
+  const [playerHealth, setPlayerHealth] = useState(PLAYER_MAX_HEALTH);
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0); // Track player's score
   const [isPaused, setIsPaused] = useState(false); // Track game pause state
@@ -15,6 +21,7 @@ const Game: React.FC = () => {
     setPosition({ x: 9, y: 9 });
     setEnemies([]);
     setIsGameOver(false);
+    setPlayerHealth(PLAYER_MAX_HEALTH);
     setScore(0); // Reset player's score
     setIsPaused(false); // Reset pause state
   };
@@ -97,13 +104,16 @@ const Game: React.FC = () => {
 
   // Check for collisions between player and enemies
   useEffect(() => {
-    const collision = enemies.some(
-      (enemy) => enemy.x === position.x && enemy.y === position.y
-    );
-    if (collision) {
-      setIsGameOver(true);
+    if (!isGameOver && !isPaused && playerHealth >= 0) {
+      const collision = enemies.some(
+        (enemy) => enemy.x === position.x && enemy.y === position.y
+      );
+      if (collision) {
+        setPlayerHealth((prevHealth) => prevHealth - DEFAULT_ENEMY_DAMAGE);
+        if (playerHealth === 0) setIsGameOver(true);
+      }
     }
-  }, [enemies, position]);
+  }, [enemies, isGameOver, isPaused, playerHealth, position]);
 
   const handleMouseClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isGameOver || isPaused) return; // Disable shooting when game is over or paused
@@ -129,7 +139,7 @@ const Game: React.FC = () => {
 
   // Check for winning condition
   useEffect(() => {
-    if (score >= 20) {
+    if (score >= WIN_SCORE) {
       setIsGameOver(true); // Set game over when player's score reaches 20
     }
   }, [score]);
@@ -140,7 +150,7 @@ const Game: React.FC = () => {
 
   return (
     <div>
-      <h1>Move the character with arrow keys</h1>
+      <div>Health: {playerHealth}</div>
       <div
         style={{
           position: "relative",

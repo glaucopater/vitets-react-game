@@ -1,3 +1,5 @@
+import { ENEMY_AVATAR } from "../../constants";
+
 export const Enemy = ({ enemy }: { enemy: { x: number; y: number } }) => {
   return (
     <div
@@ -10,7 +12,9 @@ export const Enemy = ({ enemy }: { enemy: { x: number; y: number } }) => {
         backgroundColor: "transparent",
       }}
     >
-      👽
+      <span aria-label="enemy" role="img" style={{ fontSize: 20 }}>
+        {ENEMY_AVATAR}
+      </span>
     </div>
   );
 };

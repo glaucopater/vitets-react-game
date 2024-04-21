@@ -1,5 +1,5 @@
 import {
-  GRUNT_MAX_SPEED,
+  ENEMY_MAX_SPEED,
   PLAYER_AVATAR,
   PLAYER_AVATAR_DEAD,
 } from "../constants";
@@ -40,7 +40,7 @@ export const getRandomPosition = (size: number) => {
   return [X, Y];
 };
 
-export const getRandomMove = (speed = GRUNT_MAX_SPEED) => {
+export const getRandomMove = (speed = ENEMY_MAX_SPEED) => {
   return ~~(Math.random() * speed);
 };
 
