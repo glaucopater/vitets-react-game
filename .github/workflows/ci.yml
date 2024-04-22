@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main  # Adjust this branch name if needed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Adjust the Node.js version if needed
+
+      - name: Install dependencies
+        run: yarn 
+
+      - name: Run unit tests
+        run: yarn test
