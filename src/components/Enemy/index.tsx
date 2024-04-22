@@ -3,6 +3,7 @@ import { ENEMY_AVATAR } from "../../constants";
 export const Enemy = ({ enemy }: { enemy: { x: number; y: number } }) => {
   return (
     <div
+      data-testid="enemy"
       style={{
         position: "absolute",
         top: `${enemy.y * 20}px`,
