@@ -3,12 +3,18 @@ import Modal from "../Modal"; // Adjust the path accordingly
 import { Player } from "../Player";
 import { Enemy } from "../Enemy";
 import {
+  AMMO_INCREASE,
   DEFAULT_ENEMY_DAMAGE,
+  MAX_BULLETS,
+  MEDIKIT_HEALTH_INCREASE,
   PLAYER_MAX_HEALTH,
+  RANDOM_RANGE_INTERVAL,
   WIN_SCORE,
 } from "../../constants";
+import Ammo from "../Ammo";
+import Medikit from "../Medikit";
 
-const Game: React.FC = () => {
+const Game = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 });
   const [enemies, setEnemies] = useState<{ x: number; y: number }[]>([]);
   const [playerHealth, setPlayerHealth] = useState(PLAYER_MAX_HEALTH);
@@ -17,6 +23,11 @@ const Game: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [lastDamageTime, setLastDamageTime] = useState<number | null>(null); // Track the last time the player took damage
   const playerPositionRef = useRef({ x: 9, y: 9 });
+  const [bullets, setBullets] = useState<number>(MAX_BULLETS);
+  const [ammunitions, setAmmunitions] = useState<{ x: number; y: number }[]>(
+    []
+  );
+  const [medikits, setMedikits] = useState<{ x: number; y: number }[]>([]);
 
   const resetGame = () => {
     setPosition({ x: 9, y: 9 });
@@ -26,6 +37,7 @@ const Game: React.FC = () => {
     setScore(0);
     setIsPaused(false);
     setLastDamageTime(null);
+    setBullets(MAX_BULLETS);
   };
 
   useEffect(() => {
@@ -119,11 +131,78 @@ const Game: React.FC = () => {
     }
   }, [enemies, isGameOver, isPaused, playerHealth, position, lastDamageTime]);
 
+  useEffect(() => {
+    const spawnAmmunitionInterval = setInterval(() => {
+      if (!isGameOver && !isPaused && ammunitions.length === 0) {
+        setAmmunitions((prevAmmunitions) => [
+          ...prevAmmunitions,
+          {
+            x: Math.floor(Math.random() * 20),
+            y: Math.floor(Math.random() * 20),
+          },
+        ]);
+      }
+    }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
+
+    return () => clearInterval(spawnAmmunitionInterval);
+  }, [ammunitions.length, isGameOver, isPaused]);
+
+  useEffect(() => {
+    const collectAmmunition = () => {
+      const index = ammunitions.findIndex(
+        (ammunition) =>
+          ammunition.x === position.x && ammunition.y === position.y
+      );
+      if (index !== -1) {
+        const updatedAmmunitions = [...ammunitions];
+        updatedAmmunitions.splice(index, 1);
+        setAmmunitions(updatedAmmunitions);
+        setBullets((prevBullets) => prevBullets + AMMO_INCREASE); // Increase bullets by 5 when ammunition is collected
+      }
+    };
+
+    collectAmmunition();
+  }, [position, ammunitions]);
+
+  useEffect(() => {
+    const spawnMedikitInterval = setInterval(() => {
+      if (!isGameOver && !isPaused && medikits.length === 0) {
+        setMedikits((prevMedikits) => [
+          ...prevMedikits,
+          {
+            x: Math.floor(Math.random() * 20),
+            y: Math.floor(Math.random() * 20),
+          },
+        ]);
+      }
+    }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
+
+    return () => clearInterval(spawnMedikitInterval);
+  }, [medikits.length, isGameOver, isPaused]);
+
+  useEffect(() => {
+    const collectMedikit = () => {
+      const index = medikits.findIndex(
+        (medikit) => medikit.x === position.x && medikit.y === position.y
+      );
+      if (index !== -1) {
+        const updatedMedikits = [...medikits];
+        updatedMedikits.splice(index, 1);
+        setMedikits(updatedMedikits);
+        setPlayerHealth((prevHealth) => prevHealth + MEDIKIT_HEALTH_INCREASE); // Increase bullets by 5 when ammunition is collected
+      }
+    };
+
+    collectMedikit();
+  }, [position, ammunitions, medikits]);
+
   const handleMouseClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isGameOver || isPaused) return;
+    if (isGameOver || isPaused || bullets === 0) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
+
+    setBullets((prevBullets) => prevBullets - 1);
 
     const clickedEnemyIndex = enemies.findIndex(
       (enemy) =>
@@ -152,7 +231,10 @@ const Game: React.FC = () => {
 
   return (
     <div>
-      <div>Health: {playerHealth}</div>
+      <div className="hud">
+        <div>Health: {playerHealth}</div>
+        <div>Bullets: {bullets}</div>
+      </div>
       <div
         style={{
           position: "relative",
@@ -164,9 +246,15 @@ const Game: React.FC = () => {
         }}
         onClick={handleMouseClick}
       >
-        <Player position={position} isGameOver={isGameOver} />
+        <Player position={position} health={playerHealth} />
         {enemies.map((enemy, index) => (
           <Enemy key={index} enemy={enemy} id={index.toString()} />
+        ))}
+        {ammunitions.map((ammunition, index) => (
+          <Ammo key={index} ammunition={ammunition} />
+        ))}
+        {medikits.map((medikit, index) => (
+          <Medikit key={index} medikit={medikit} />
         ))}
       </div>
 
