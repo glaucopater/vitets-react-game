@@ -2,6 +2,7 @@ import {
   ENEMY_MAX_SPEED,
   PLAYER_AVATAR,
   PLAYER_AVATAR_DEAD,
+  PLAYER_AVATAR_SICK,
 } from "../constants";
 export const hasWindow = typeof window !== "undefined";
 
@@ -44,8 +45,9 @@ export const getRandomMove = (speed = ENEMY_MAX_SPEED) => {
   return ~~(Math.random() * speed);
 };
 
-export const getPlayerAvatar = (isGameOver: boolean) => {
-  if (isGameOver) return PLAYER_AVATAR_DEAD;
+export const getPlayerAvatar = (health: number) => {
+  if (health === 0) return PLAYER_AVATAR_DEAD;
+  if (health < 50) return PLAYER_AVATAR_SICK;
   return PLAYER_AVATAR;
 };
 

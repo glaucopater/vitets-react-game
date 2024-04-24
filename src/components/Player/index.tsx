@@ -2,10 +2,10 @@ import { getPlayerAvatar } from "../../helpers";
 
 export const Player = ({
   position,
-  isGameOver,
+  health,
 }: {
   position: { x: number; y: number };
-  isGameOver: boolean;
+  health: number;
 }) => {
   return (
     <div
@@ -19,7 +19,7 @@ export const Player = ({
       }}
     >
       <span aria-label="player" role="img" style={{ fontSize: 30 }}>
-        {getPlayerAvatar(isGameOver)}
+        {getPlayerAvatar(health)}
       </span>
     </div>
   );
