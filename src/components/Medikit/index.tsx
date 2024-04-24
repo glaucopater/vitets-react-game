@@ -1,4 +1,3 @@
-import React from "react";
 import { MEDIKIT_AVATAR } from "../../constants";
 
 interface MedikitProps {
