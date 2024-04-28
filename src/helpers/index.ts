@@ -54,7 +54,7 @@ export const getPlayerAvatar = (health: number) => {
 export const getPlayerNextUp = (
   y: number,
   playerMovementUnit: number,
-  size: number
+  size: number,
 ) => {
   const nextY = y - playerMovementUnit;
   return nextY <= 0 + size ? y : nextY;
@@ -63,7 +63,7 @@ export const getPlayerNextUp = (
 export const getPlayerNextDown = (
   y: number,
   playerMovementUnit: number,
-  size: number
+  size: number,
 ) => {
   const nextY = y + playerMovementUnit;
 
@@ -73,7 +73,7 @@ export const getPlayerNextDown = (
 export const getPlayerNextRight = (
   x: number,
   playerMovementUnit: number,
-  size: number
+  size: number,
 ) => {
   const nextX = x + playerMovementUnit;
   return nextX >= getWindowDimensions().width - size * 10 ? x : nextX;
@@ -82,7 +82,7 @@ export const getPlayerNextRight = (
 export const getPlayerNextLeft = (
   x: number,
   playerMovementUnit: number,
-  size: number
+  size: number,
 ) => {
   const nextX = x - playerMovementUnit;
   return nextX <= 0 + size ? x : nextX;

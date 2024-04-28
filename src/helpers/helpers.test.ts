@@ -13,7 +13,7 @@ describe("getPlayerNextLeft", () => {
     const playerMovementUnit = 2;
     const size = 1;
     expect(getPlayerNextLeft(x, playerMovementUnit, size)).toBe(
-      x - playerMovementUnit
+      x - playerMovementUnit,
     );
   });
 });

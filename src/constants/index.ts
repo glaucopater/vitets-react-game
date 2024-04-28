@@ -1,3 +1,7 @@
+import hit_1 from "../assets/audio/hit1.wav";
+import hit_2 from "../assets/audio/hit2.wav";
+import shoot from "../assets/audio/shoot1.wav";
+
 export const PLAYER_AVATAR = "🤨";
 export const PLAYER_AVATAR_SICK = "🥵";
 export const PLAYER_AVATAR_DEAD = "💀";
@@ -22,7 +26,16 @@ export const WIN_SCORE = 20;
 export const PLAYER_MAX_HEALTH = 100;
 
 export const MAX_BULLETS = 20;
-export const MEDIKIT_HEALTH_INCREASE = 25;
-export const AMMO_INCREASE = 25;
+export const MEDIKIT_HEALTH_INCREASE = 5;
+export const AMMO_INCREASE = 5;
 
 export const RANDOM_RANGE_INTERVAL = [5000, 2000];
+
+export const audio = {
+  shoot1: new Audio(shoot),
+  hit1: new Audio(hit_1),
+  hit2: new Audio(hit_2),
+};
+
+export const MIN_LEFT_X = 18;
+export const MIN_BOTTOM_Y = 18;

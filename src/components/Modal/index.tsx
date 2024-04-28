@@ -1,5 +1,4 @@
-import React from "react";
-
+import "./Modal.css";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -10,31 +9,8 @@ const Modal = ({ isOpen, children }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        opacity: 0.7,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: "20px",
-          borderRadius: "5px",
-          color: "#111",
-          width: "30%",
-        }}
-      >
-        {children}
-      </div>
+    <div className="modal-wrapper">
+      <div className="modal">{children}</div>
     </div>
   );
 };
