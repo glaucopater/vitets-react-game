@@ -19,7 +19,6 @@ import Medikit from "../Medikit";
 import { Area } from "../Area";
 import { Hud } from "../Hud";
 import FEATURES from "../../features";
-import useSwipe from "../../hooks/useSwipe";
 
 const Game = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 });
@@ -69,18 +68,15 @@ const Game = () => {
     setPosition((prev) => ({ ...prev, y: Math.max(0, prev.y - 1) }));
   };
 
-  const swipeHandlers = useSwipe({
-    onSwipedLeft: () => moveLeft(),
-    onSwipedRight: () => moveRight(),
-    onSwipedUp: () => moveDown(),
-    onSwipedDown: () => moveUp(),
-  });
+  const pauseGame = () => {
+    setIsPaused((prevPaused) => !prevPaused);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isGameOver) return;
       if (e.key === " ") {
-        setIsPaused((prevPaused) => !prevPaused);
+        pauseGame();
       } else if (!isPaused) {
         switch (e.key) {
           case "w":
@@ -303,7 +299,7 @@ const Game = () => {
   };
 
   return (
-    <div {...swipeHandlers} style={{ padding: 0, position: "relative" }}>
+    <div style={{ padding: 0, position: "relative" }}>
       <Area handleMouseClick={handleMouseClick}>
         <Player position={position} health={playerHealth} isPaused={isPaused} />
         {FEATURES.ALLOW_ENEMIES &&
@@ -325,6 +321,31 @@ const Game = () => {
           ))}
       </Area>
       <Hud playerHealth={playerHealth} bullets={bullets} />
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button onClick={() => moveUp()}>Up</button>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "0 20px",
+        }}
+      >
+        <button onClick={() => moveLeft()}>Left</button>
+        <button onClick={() => moveRight()}>Right</button>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button onClick={() => moveDown()}>Down</button>
+      </div>
+
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+      >
+        <button style={{ width: "100%" }} onClick={() => pauseGame()}>
+          Pause
+        </button>
+      </div>
 
       <Modal isOpen={isGameOver} onClose={resetGame}>
         <h2>{score >= WIN_SCORE ? "You Win!" : "Game Over!"}</h2>
