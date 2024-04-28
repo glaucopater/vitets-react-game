@@ -224,8 +224,10 @@ const Game = () => {
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
+    audio.shoot1.volume = 0.3;
     audio.shoot1.currentTime = 0.2;
     audio.shoot1.play();
+
     setBullets((prevBullets) => prevBullets - 1);
 
     const clickedEnemyIndex = enemies.findIndex(
@@ -272,9 +274,14 @@ const Game = () => {
         }}
         onClick={handleMouseClick}
       >
-        <Player position={position} health={playerHealth} />
+        <Player position={position} health={playerHealth} isPaused={isPaused} />
         {enemies.map((enemy, index) => (
-          <Enemy key={index} enemy={enemy} id={index.toString()} />
+          <Enemy
+            key={index}
+            enemy={enemy}
+            id={index.toString()}
+            isPaused={isPaused}
+          />
         ))}
         {ammunitions.map((ammunition, index) => (
           <Ammo key={index} ammunition={ammunition} />

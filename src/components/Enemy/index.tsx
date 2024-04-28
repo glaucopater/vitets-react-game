@@ -1,23 +1,22 @@
 import { ENEMY_AVATAR } from "../../constants";
-
+import "./Enemy.css";
 export const Enemy = ({
   enemy,
   id,
+  isPaused,
 }: {
   enemy: { x: number; y: number };
   id: string;
+  isPaused: boolean;
 }) => {
   return (
     <div
+      className={"enemy " + (isPaused ? "" : "pulse")}
       id={`enemy-${id}`}
       data-testid={`enemy-${id}`}
       style={{
-        position: "absolute",
         top: `${enemy.y * 20}px`,
         left: `${enemy.x * 20}px`,
-        width: "20px",
-        height: "20px",
-        backgroundColor: "transparent",
       }}
     >
       <span aria-label="enemy" role="img" style={{ fontSize: 20 }}>
