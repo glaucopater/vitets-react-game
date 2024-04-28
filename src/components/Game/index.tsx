@@ -16,6 +16,7 @@ import Ammo from "../Ammo";
 import Medikit from "../Medikit";
 import { Area } from "../Area";
 import { Hud } from "../Hud";
+import FEATURES from "../../features";
 
 const Game = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 });
@@ -84,6 +85,7 @@ const Game = () => {
   }, [position]);
 
   useEffect(() => {
+    if (!FEATURES.ALLOW_ENEMIES) return;
     const spawnEnemyInterval = setInterval(() => {
       if (!isGameOver && enemies.length < 5 && !isPaused) {
         setEnemies((prevEnemies) => [
@@ -132,9 +134,10 @@ const Game = () => {
           audio.hit2.volume = 0.1;
           audio.hit2.currentTime = 0;
           audio.hit2.play();
-          setPlayerHealth((prevHealth) =>
-            Math.max(prevHealth - DEFAULT_ENEMY_DAMAGE, 0)
-          );
+          if (!FEATURES.ALLOW_PLAYER_IMMORTAL)
+            setPlayerHealth((prevHealth) =>
+              Math.max(prevHealth - DEFAULT_ENEMY_DAMAGE, 0)
+            );
           if (playerHealth === 0) setIsGameOver(true);
         }
       }
@@ -263,25 +266,28 @@ const Game = () => {
     <div>
       <Area handleMouseClick={handleMouseClick}>
         <Player position={position} health={playerHealth} isPaused={isPaused} />
-        {enemies.map((enemy, index) => (
-          <Enemy
-            key={index}
-            enemy={enemy}
-            id={index.toString()}
-            isPaused={isPaused}
-          />
-        ))}
-        {ammunitions.map((ammunition, index) => (
-          <Ammo key={index} ammunition={ammunition} />
-        ))}
-        {medikits.map((medikit, index) => (
-          <Medikit key={index} medikit={medikit} />
-        ))}
+        {FEATURES.ALLOW_ENEMIES &&
+          enemies.map((enemy, index) => (
+            <Enemy
+              key={index}
+              enemy={enemy}
+              id={index.toString()}
+              isPaused={isPaused}
+            />
+          ))}
+        {FEATURES.ALLOW_POWERUPS &&
+          ammunitions.map((ammunition, index) => (
+            <Ammo key={index} ammunition={ammunition} />
+          ))}
+        {FEATURES.ALLOW_POWERUPS &&
+          medikits.map((medikit, index) => (
+            <Medikit key={index} medikit={medikit} />
+          ))}
       </Area>
       <Hud playerHealth={playerHealth} bullets={bullets} />
 
       <Modal isOpen={isGameOver} onClose={resetGame}>
-        <h2>{score >= 20 ? "You Win!" : "Game Over!"}</h2>
+        <h2>{score >= WIN_SCORE ? "You Win!" : "Game Over!"}</h2>
         <p>Your score: {score}</p>
         <button onClick={resetGame}>Restart</button>
       </Modal>
