@@ -1,29 +1,29 @@
 .player {
-    border-radius: 50%;
-    border: 1px solid azure;
-    padding: 0;
-    position: absolute;
-    background-color: transparent;
-    place-content: center;
-    justify-items: center;
-    width: 40px;
-    height: 40px;
+  border-radius: 50%;
+  border: 1px solid azure;
+  padding: 0;
+  position: absolute;
+  background-color: transparent;
+  place-content: center;
+  justify-items: center;
+  width: 40px;
+  height: 40px;
 }
 
 .breath {
-    animation: breath-animation 1s infinite;
+  animation: breath-animation 1s infinite;
 }
 
 @keyframes breath-animation {
-    0% {
-        translate: 0 0px;
-    }
+  0% {
+    translate: 0 0px;
+  }
 
-    50% {
-        translate: 0 2px;
-    }
+  50% {
+    translate: 0 2px;
+  }
 
-    100% {
-        translate: 0 0px;
-    }
+  100% {
+    translate: 0 0px;
+  }
 }

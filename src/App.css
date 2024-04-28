@@ -50,11 +50,9 @@
   justify-content: space-between;
 }
 
-
 .pulse {
   animation: pulse-animation 1s infinite;
 }
-
 
 @keyframes pulse-animation {
   0% {

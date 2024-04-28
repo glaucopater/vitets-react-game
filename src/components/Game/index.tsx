@@ -32,7 +32,7 @@ const Game = () => {
   const playerPositionRef = useRef({ x: 9, y: 9 });
   const [bullets, setBullets] = useState<number>(MAX_BULLETS);
   const [ammunitions, setAmmunitions] = useState<{ x: number; y: number }[]>(
-    []
+    [],
   );
   const [medikits, setMedikits] = useState<{ x: number; y: number }[]>([]);
 
@@ -159,7 +159,7 @@ const Game = () => {
       const now = Date.now();
       if (lastDamageTime === null || now - lastDamageTime > 1000) {
         const collision = enemies.some(
-          (enemy) => enemy.x === position.x && enemy.y === position.y
+          (enemy) => enemy.x === position.x && enemy.y === position.y,
         );
         if (collision) {
           setLastDamageTime(now);
@@ -168,7 +168,7 @@ const Game = () => {
           audio.hit2.play();
           if (!FEATURES.ALLOW_PLAYER_IMMORTAL)
             setPlayerHealth((prevHealth) =>
-              Math.max(prevHealth - DEFAULT_ENEMY_DAMAGE, 0)
+              Math.max(prevHealth - DEFAULT_ENEMY_DAMAGE, 0),
             );
           if (playerHealth === 0) setIsGameOver(true);
         }
@@ -178,17 +178,21 @@ const Game = () => {
 
   useEffect(() => {
     if (bullets < MAX_BULLETS) {
-      const spawnAmmunitionInterval = setInterval(() => {
-        if (!isGameOver && !isPaused && ammunitions.length === 0) {
-          setAmmunitions((prevAmmunitions) => [
-            ...prevAmmunitions,
-            {
-              x: Math.floor(Math.random() * MIN_LEFT_X),
-              y: Math.floor(Math.random() * MIN_BOTTOM_Y),
-            },
-          ]);
-        }
-      }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
+      const spawnAmmunitionInterval = setInterval(
+        () => {
+          if (!isGameOver && !isPaused && ammunitions.length === 0) {
+            setAmmunitions((prevAmmunitions) => [
+              ...prevAmmunitions,
+              {
+                x: Math.floor(Math.random() * MIN_LEFT_X),
+                y: Math.floor(Math.random() * MIN_BOTTOM_Y),
+              },
+            ]);
+          }
+        },
+        Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) +
+          RANDOM_RANGE_INTERVAL[0],
+      ); // Random interval between 2 to 7 seconds
       return () => clearInterval(spawnAmmunitionInterval);
     }
   }, [ammunitions.length, bullets, isGameOver, isPaused]);
@@ -197,7 +201,7 @@ const Game = () => {
     const collectAmmunition = () => {
       const index = ammunitions.findIndex(
         (ammunition) =>
-          ammunition.x === position.x && ammunition.y === position.y
+          ammunition.x === position.x && ammunition.y === position.y,
       );
       if (index !== -1) {
         const updatedAmmunitions = [...ammunitions];
@@ -209,7 +213,7 @@ const Game = () => {
           setBullets((prevBullets) =>
             prevBullets + AMMO_INCREASE > MAX_BULLETS
               ? MAX_BULLETS
-              : prevBullets + AMMO_INCREASE
+              : prevBullets + AMMO_INCREASE,
           );
       }
     };
@@ -219,17 +223,21 @@ const Game = () => {
 
   useEffect(() => {
     if (playerHealth <= PLAYER_MAX_HEALTH) {
-      const spawnMedikitInterval = setInterval(() => {
-        if (!isGameOver && !isPaused && medikits.length === 0) {
-          setMedikits((prevMedikits) => [
-            ...prevMedikits,
-            {
-              x: Math.floor(Math.random() * MIN_LEFT_X),
-              y: Math.floor(Math.random() * MIN_BOTTOM_Y),
-            },
-          ]);
-        }
-      }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
+      const spawnMedikitInterval = setInterval(
+        () => {
+          if (!isGameOver && !isPaused && medikits.length === 0) {
+            setMedikits((prevMedikits) => [
+              ...prevMedikits,
+              {
+                x: Math.floor(Math.random() * MIN_LEFT_X),
+                y: Math.floor(Math.random() * MIN_BOTTOM_Y),
+              },
+            ]);
+          }
+        },
+        Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) +
+          RANDOM_RANGE_INTERVAL[0],
+      ); // Random interval between 2 to 7 seconds
 
       return () => clearInterval(spawnMedikitInterval);
     }
@@ -238,7 +246,7 @@ const Game = () => {
   useEffect(() => {
     const collectMedikit = () => {
       const index = medikits.findIndex(
-        (medikit) => medikit.x === position.x && medikit.y === position.y
+        (medikit) => medikit.x === position.x && medikit.y === position.y,
       );
       if (index !== -1) {
         const updatedMedikits = [...medikits];
@@ -247,7 +255,7 @@ const Game = () => {
         setPlayerHealth((prevHealth) =>
           prevHealth + MEDIKIT_HEALTH_INCREASE > PLAYER_MAX_HEALTH
             ? PLAYER_MAX_HEALTH
-            : prevHealth + MEDIKIT_HEALTH_INCREASE
+            : prevHealth + MEDIKIT_HEALTH_INCREASE,
         );
       }
     };
@@ -272,7 +280,7 @@ const Game = () => {
         mouseX >= enemy.x * 20 &&
         mouseX < (enemy.x + 1) * 20 &&
         mouseY >= enemy.y * 20 &&
-        mouseY < (enemy.y + 1) * 20
+        mouseY < (enemy.y + 1) * 20,
     );
     if (clickedEnemyIndex !== -1) {
       const updatedEnemies = [...enemies];
