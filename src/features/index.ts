@@ -10,3 +10,8 @@ export default {
   ALLOW_POWERUPS,
   ALLOW_PLAYER_IMMORTAL,
 };
+
+console.log(ALLOW_ENEMIES,
+  ALLOW_POWERUPS,
+  ALLOW_PLAYER_IMMORTAL);
+  
