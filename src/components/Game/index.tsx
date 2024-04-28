@@ -10,6 +10,7 @@ import {
   PLAYER_MAX_HEALTH,
   RANDOM_RANGE_INTERVAL,
   WIN_SCORE,
+  audio,
 } from "../../constants";
 import Ammo from "../Ammo";
 import Medikit from "../Medikit";
@@ -122,6 +123,9 @@ const Game = () => {
         );
         if (collision) {
           setLastDamageTime(now);
+          audio.hit2.volume = 0.1;
+          audio.hit2.currentTime = 0;
+          audio.hit2.play();
           setPlayerHealth((prevHealth) =>
             Math.max(prevHealth - DEFAULT_ENEMY_DAMAGE, 0)
           );
@@ -156,6 +160,8 @@ const Game = () => {
       if (index !== -1) {
         const updatedAmmunitions = [...ammunitions];
         updatedAmmunitions.splice(index, 1);
+        audio.hit1.currentTime = 0.2;
+        audio.hit1.play();
         setAmmunitions(updatedAmmunitions);
         setBullets((prevBullets) => prevBullets + AMMO_INCREASE); // Increase bullets by 5 when ammunition is collected
       }
@@ -202,6 +208,8 @@ const Game = () => {
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
+    audio.shoot1.currentTime = 0.2;
+    audio.shoot1.play();
     setBullets((prevBullets) => prevBullets - 1);
 
     const clickedEnemyIndex = enemies.findIndex(
@@ -213,8 +221,10 @@ const Game = () => {
     );
     if (clickedEnemyIndex !== -1) {
       const updatedEnemies = [...enemies];
+
       updatedEnemies.splice(clickedEnemyIndex, 1);
       setEnemies(updatedEnemies);
+
       setScore((prevScore) => prevScore + 1);
     }
   };
