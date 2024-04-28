@@ -48,15 +48,19 @@ const Game = () => {
         setIsPaused((prevPaused) => !prevPaused);
       } else if (!isPaused) {
         switch (e.key) {
+          case "w":
           case "ArrowUp":
             setPosition((prev) => ({ ...prev, y: Math.max(0, prev.y - 1) }));
             break;
+          case "s":
           case "ArrowDown":
             setPosition((prev) => ({ ...prev, y: Math.min(19, prev.y + 1) }));
             break;
+          case "a":
           case "ArrowLeft":
             setPosition((prev) => ({ ...prev, x: Math.max(0, prev.x - 1) }));
             break;
+          case "d":
           case "ArrowRight":
             setPosition((prev) => ({ ...prev, x: Math.min(19, prev.x + 1) }));
             break;
@@ -136,20 +140,21 @@ const Game = () => {
   }, [enemies, isGameOver, isPaused, playerHealth, position, lastDamageTime]);
 
   useEffect(() => {
-    const spawnAmmunitionInterval = setInterval(() => {
-      if (!isGameOver && !isPaused && ammunitions.length === 0) {
-        setAmmunitions((prevAmmunitions) => [
-          ...prevAmmunitions,
-          {
-            x: Math.floor(Math.random() * 20),
-            y: Math.floor(Math.random() * 20),
-          },
-        ]);
-      }
-    }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
-
-    return () => clearInterval(spawnAmmunitionInterval);
-  }, [ammunitions.length, isGameOver, isPaused]);
+    if (bullets < MAX_BULLETS) {
+      const spawnAmmunitionInterval = setInterval(() => {
+        if (!isGameOver && !isPaused && ammunitions.length === 0) {
+          setAmmunitions((prevAmmunitions) => [
+            ...prevAmmunitions,
+            {
+              x: Math.floor(Math.random() * 20),
+              y: Math.floor(Math.random() * 20),
+            },
+          ]);
+        }
+      }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
+      return () => clearInterval(spawnAmmunitionInterval);
+    }
+  }, [ammunitions.length, bullets, isGameOver, isPaused]);
 
   useEffect(() => {
     const collectAmmunition = () => {
@@ -163,28 +168,35 @@ const Game = () => {
         audio.hit1.currentTime = 0.2;
         audio.hit1.play();
         setAmmunitions(updatedAmmunitions);
-        setBullets((prevBullets) => prevBullets + AMMO_INCREASE); // Increase bullets by 5 when ammunition is collected
+        if (bullets < MAX_BULLETS)
+          setBullets((prevBullets) =>
+            prevBullets + AMMO_INCREASE > MAX_BULLETS
+              ? MAX_BULLETS
+              : prevBullets + AMMO_INCREASE
+          );
       }
     };
 
     collectAmmunition();
-  }, [position, ammunitions]);
+  }, [position, ammunitions, bullets]);
 
   useEffect(() => {
-    const spawnMedikitInterval = setInterval(() => {
-      if (!isGameOver && !isPaused && medikits.length === 0) {
-        setMedikits((prevMedikits) => [
-          ...prevMedikits,
-          {
-            x: Math.floor(Math.random() * 20),
-            y: Math.floor(Math.random() * 20),
-          },
-        ]);
-      }
-    }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
+    if (playerHealth <= PLAYER_MAX_HEALTH) {
+      const spawnMedikitInterval = setInterval(() => {
+        if (!isGameOver && !isPaused && medikits.length === 0) {
+          setMedikits((prevMedikits) => [
+            ...prevMedikits,
+            {
+              x: Math.floor(Math.random() * 20),
+              y: Math.floor(Math.random() * 20),
+            },
+          ]);
+        }
+      }, Math.floor(Math.random() * RANDOM_RANGE_INTERVAL[1]) + RANDOM_RANGE_INTERVAL[0]); // Random interval between 2 to 7 seconds
 
-    return () => clearInterval(spawnMedikitInterval);
-  }, [medikits.length, isGameOver, isPaused]);
+      return () => clearInterval(spawnMedikitInterval);
+    }
+  }, [medikits.length, isGameOver, isPaused, playerHealth]);
 
   useEffect(() => {
     const collectMedikit = () => {
@@ -195,7 +207,11 @@ const Game = () => {
         const updatedMedikits = [...medikits];
         updatedMedikits.splice(index, 1);
         setMedikits(updatedMedikits);
-        setPlayerHealth((prevHealth) => prevHealth + MEDIKIT_HEALTH_INCREASE); // Increase bullets by 5 when ammunition is collected
+        setPlayerHealth((prevHealth) =>
+          prevHealth + MEDIKIT_HEALTH_INCREASE > PLAYER_MAX_HEALTH
+            ? PLAYER_MAX_HEALTH
+            : prevHealth + MEDIKIT_HEALTH_INCREASE
+        );
       }
     };
 

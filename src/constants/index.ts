@@ -26,8 +26,8 @@ export const WIN_SCORE = 20;
 export const PLAYER_MAX_HEALTH = 100;
 
 export const MAX_BULLETS = 20;
-export const MEDIKIT_HEALTH_INCREASE = 25;
-export const AMMO_INCREASE = 25;
+export const MEDIKIT_HEALTH_INCREASE = 5;
+export const AMMO_INCREASE = 5;
 
 export const RANDOM_RANGE_INTERVAL = [5000, 2000];
 
