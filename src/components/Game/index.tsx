@@ -7,6 +7,8 @@ import {
   DEFAULT_ENEMY_DAMAGE,
   MAX_BULLETS,
   MEDIKIT_HEALTH_INCREASE,
+  MIN_BOTTOM_Y,
+  MIN_LEFT_X,
   PLAYER_MAX_HEALTH,
   RANDOM_RANGE_INTERVAL,
   WIN_SCORE,
@@ -57,7 +59,10 @@ const Game = () => {
             break;
           case "s":
           case "ArrowDown":
-            setPosition((prev) => ({ ...prev, y: Math.min(19, prev.y + 1) }));
+            setPosition((prev) => ({
+              ...prev,
+              y: Math.min(MIN_BOTTOM_Y, prev.y + 1),
+            }));
             break;
           case "a":
           case "ArrowLeft":
@@ -65,7 +70,10 @@ const Game = () => {
             break;
           case "d":
           case "ArrowRight":
-            setPosition((prev) => ({ ...prev, x: Math.min(19, prev.x + 1) }));
+            setPosition((prev) => ({
+              ...prev,
+              x: Math.min(MIN_LEFT_X, prev.x + 1),
+            }));
             break;
           default:
             break;
@@ -78,7 +86,7 @@ const Game = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isGameOver, isPaused]);
+  }, [isGameOver, isPaused, position]);
 
   useEffect(() => {
     playerPositionRef.current = position;
@@ -151,8 +159,8 @@ const Game = () => {
           setAmmunitions((prevAmmunitions) => [
             ...prevAmmunitions,
             {
-              x: Math.floor(Math.random() * 20),
-              y: Math.floor(Math.random() * 20),
+              x: Math.floor(Math.random() * MIN_LEFT_X),
+              y: Math.floor(Math.random() * MIN_BOTTOM_Y),
             },
           ]);
         }
@@ -192,8 +200,8 @@ const Game = () => {
           setMedikits((prevMedikits) => [
             ...prevMedikits,
             {
-              x: Math.floor(Math.random() * 20),
-              y: Math.floor(Math.random() * 20),
+              x: Math.floor(Math.random() * MIN_LEFT_X),
+              y: Math.floor(Math.random() * MIN_BOTTOM_Y),
             },
           ]);
         }

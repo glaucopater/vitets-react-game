@@ -36,3 +36,6 @@ export const audio = {
   hit1: new Audio(hit_1),
   hit2: new Audio(hit_2),
 };
+
+export const MIN_LEFT_X = 18;
+export const MIN_BOTTOM_Y = 18;
