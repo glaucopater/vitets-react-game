@@ -19,6 +19,7 @@ import Medikit from "../Medikit";
 import { Area } from "../Area";
 import { Hud } from "../Hud";
 import FEATURES from "../../features";
+import useSwipe from "../../hooks/useSwipe";
 
 const Game = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 });
@@ -46,6 +47,35 @@ const Game = () => {
     setBullets(MAX_BULLETS);
   };
 
+  const moveRight = () => {
+    setPosition((prev) => ({
+      ...prev,
+      x: Math.min(MIN_LEFT_X, prev.x + 1),
+    }));
+  };
+
+  const moveLeft = () => {
+    setPosition((prev) => ({ ...prev, x: Math.max(0, prev.x - 1) }));
+  };
+
+  const moveDown = () => {
+    setPosition((prev) => ({
+      ...prev,
+      y: Math.min(MIN_BOTTOM_Y, prev.y + 1),
+    }));
+  };
+
+  const moveUp = () => {
+    setPosition((prev) => ({ ...prev, y: Math.max(0, prev.y - 1) }));
+  };
+
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () => moveLeft(),
+    onSwipedRight: () => moveRight(),
+    onSwipedUp: () => moveDown(),
+    onSwipedDown: () => moveUp(),
+  });
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isGameOver) return;
@@ -55,25 +85,19 @@ const Game = () => {
         switch (e.key) {
           case "w":
           case "ArrowUp":
-            setPosition((prev) => ({ ...prev, y: Math.max(0, prev.y - 1) }));
+            moveUp();
             break;
           case "s":
           case "ArrowDown":
-            setPosition((prev) => ({
-              ...prev,
-              y: Math.min(MIN_BOTTOM_Y, prev.y + 1),
-            }));
+            moveDown();
             break;
           case "a":
           case "ArrowLeft":
-            setPosition((prev) => ({ ...prev, x: Math.max(0, prev.x - 1) }));
+            moveLeft();
             break;
           case "d":
           case "ArrowRight":
-            setPosition((prev) => ({
-              ...prev,
-              x: Math.min(MIN_LEFT_X, prev.x + 1),
-            }));
+            moveRight();
             break;
           default:
             break;
@@ -271,7 +295,7 @@ const Game = () => {
   };
 
   return (
-    <div>
+    <div {...swipeHandlers} style={{ padding: 0, position: "relative" }}>
       <Area handleMouseClick={handleMouseClick}>
         <Player position={position} health={playerHealth} isPaused={isPaused} />
         {FEATURES.ALLOW_ENEMIES &&
