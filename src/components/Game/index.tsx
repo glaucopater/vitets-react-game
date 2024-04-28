@@ -14,6 +14,8 @@ import {
 } from "../../constants";
 import Ammo from "../Ammo";
 import Medikit from "../Medikit";
+import { Area } from "../Area";
+import { Hud } from "../Hud";
 
 const Game = () => {
   const [position, setPosition] = useState({ x: 9, y: 9 });
@@ -259,21 +261,7 @@ const Game = () => {
 
   return (
     <div>
-      <div className="hud">
-        <div>Health: {playerHealth}</div>
-        <div>Bullets: {bullets}</div>
-      </div>
-      <div
-        style={{
-          position: "relative",
-          width: "400px",
-          height: "400px",
-          border: "1px solid black",
-          background: "lightgray",
-          cursor: "crosshair",
-        }}
-        onClick={handleMouseClick}
-      >
+      <Area handleMouseClick={handleMouseClick}>
         <Player position={position} health={playerHealth} isPaused={isPaused} />
         {enemies.map((enemy, index) => (
           <Enemy
@@ -289,7 +277,8 @@ const Game = () => {
         {medikits.map((medikit, index) => (
           <Medikit key={index} medikit={medikit} />
         ))}
-      </div>
+      </Area>
+      <Hud playerHealth={playerHealth} bullets={bullets} />
 
       <Modal isOpen={isGameOver} onClose={resetGame}>
         <h2>{score >= 20 ? "You Win!" : "Game Over!"}</h2>
