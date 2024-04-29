@@ -34,6 +34,7 @@ const Game = () => {
     [],
   );
   const [medikits, setMedikits] = useState<{ x: number; y: number }[]>([]);
+  const [isShooting, setIsShooting] = useState(false);
 
   const resetGame = () => {
     setPosition({ x: 9, y: 9 });
@@ -259,16 +260,16 @@ const Game = () => {
     collectMedikit();
   }, [position, ammunitions, medikits]);
 
-  const handleMouseClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isGameOver || isPaused || bullets === 0) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
+    setIsShooting(true);
     audio.shoot1.volume = 0.3;
     audio.shoot1.currentTime = 0.2;
     audio.shoot1.play();
-
     setBullets((prevBullets) => prevBullets - 1);
 
     const clickedEnemyIndex = enemies.findIndex(
@@ -280,13 +281,16 @@ const Game = () => {
     );
     if (clickedEnemyIndex !== -1) {
       const updatedEnemies = [...enemies];
-
       updatedEnemies.splice(clickedEnemyIndex, 1);
       setEnemies(updatedEnemies);
-
       setScore((prevScore) => prevScore + 1);
     }
   };
+
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsShooting(false);
+  }
 
   useEffect(() => {
     if (score >= WIN_SCORE) {
@@ -300,7 +304,7 @@ const Game = () => {
 
   return (
     <div style={{ padding: 0, position: "relative" }}>
-      <Area handleMouseClick={handleMouseClick}>
+      <Area handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} isShooting={isShooting}>
         <Player position={position} health={playerHealth} isPaused={isPaused} />
         {FEATURES.ALLOW_ENEMIES &&
           enemies.map((enemy, index) => (

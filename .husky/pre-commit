@@ -1,3 +1,2 @@
 yarn tsc
 yarn test --no-watch
-#yarn prettier .\src\ --write
