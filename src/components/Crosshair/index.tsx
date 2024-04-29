@@ -7,8 +7,8 @@ export const Crosshairs = ({
   crosshairPos: number[];
   isShooting: boolean;
 }) => {
-  const top = crosshairPos[1] - 25;
-  const left = crosshairPos[0] - 75;
+  const top = crosshairPos[1] - 35;
+  const left = crosshairPos[0] - 85;
 
   return (
     <>
@@ -36,8 +36,8 @@ export const Crosshairs = ({
       <div
         className="innerCrosshair"
         style={{
-          top: top - 5,
-          left: left - 5,
+          top: top,
+          left: left,
         }}
       />
     </>

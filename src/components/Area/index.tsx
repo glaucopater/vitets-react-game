@@ -9,25 +9,28 @@ export const Area = ({
 }: {
   handleMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
   handleMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void;
-  isShooting: boolean
+  isShooting: boolean;
   children: React.ReactNode;
 }) => {
   const [crosshairPos, setCrosshairPos] = useState([0, 0]);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleOnMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    setCrosshairPos([e.clientX, e.clientY])
-  }
-
-
+    setCrosshairPos([e.clientX, e.clientY]);
+  };
 
   return (
-    <div className="area" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}
+    <div
+      className="area"
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
       onMouseMove={handleOnMouseMove}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
     >
-      <Crosshairs
-        isShooting={isShooting}
-        crosshairPos={crosshairPos}
-      />
+      {isVisible && (
+        <Crosshairs isShooting={isShooting} crosshairPos={crosshairPos} />
+      )}
       {children}
     </div>
   );
