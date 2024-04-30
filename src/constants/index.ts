@@ -5,9 +5,10 @@ import shoot from "../assets/audio/shoot1.wav";
 export const PLAYER_AVATAR = "🤨";
 export const PLAYER_AVATAR_SICK = "🥵";
 export const PLAYER_AVATAR_DEAD = "💀";
-export const ENEMY_AVATAR = "👽";
+export const ENEMY_AVATARS = ["👽", "👾"];
 export const FIRE_AVATAR = "🔥";
-export const MEDIKIT_AVATAR = "💊";
+export const TARGET_AVATAR = "💢";
+export const POWERUPS_AVATARS = ["🍇", "🍈", "🍉", "🍊", "🍒", "🍑", "🍍"];
 export const AMMO_AVATAR = "🔫";
 
 // min is 2 for movement

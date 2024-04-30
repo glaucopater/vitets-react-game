@@ -15,7 +15,7 @@ import {
   audio,
 } from "../../constants";
 import Ammo from "../Ammo";
-import Medikit from "../Medikit";
+import PowerUp from "../PowerUp";
 import { Area } from "../Area";
 import { Hud } from "../Hud";
 import FEATURES from "../../features";
@@ -317,7 +317,7 @@ const Game = () => {
           ))}
         {FEATURES.ALLOW_POWERUPS &&
           medikits.map((medikit, index) => (
-            <Medikit key={index} medikit={medikit} />
+            <PowerUp key={index} powerupPosition={medikit} />
           ))}
       </Area>
       <Hud playerHealth={playerHealth} bullets={bullets} />

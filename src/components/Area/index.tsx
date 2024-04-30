@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Crosshairs } from "../Crosshair";
 import "./Area.css";
+import CustomCursor from "../CustomCursor";
 export const Area = ({
   handleMouseDown,
   handleMouseUp,
@@ -12,25 +12,17 @@ export const Area = ({
   isShooting: boolean;
   children: React.ReactNode;
 }) => {
-  const [crosshairPos, setCrosshairPos] = useState([0, 0]);
   const [isVisible, setIsVisible] = useState(true);
-
-  const handleOnMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    setCrosshairPos([e.clientX, e.clientY]);
-  };
 
   return (
     <div
       className="area"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      onMouseMove={handleOnMouseMove}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
-      {isVisible && (
-        <Crosshairs isShooting={isShooting} crosshairPos={crosshairPos} />
-      )}
+      {isVisible && <CustomCursor isShooting={isShooting} />}
       {children}
     </div>
   );

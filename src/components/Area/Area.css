@@ -6,8 +6,3 @@
   background: #111;
   cursor: crosshair;
 }
-
-.shoot {
-  animation: shoot-animation 0.5s infinite;
-  cursor: crosshair;
-}
