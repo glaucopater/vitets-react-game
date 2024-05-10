@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import {
   MAX_BULLETS,
@@ -12,9 +11,9 @@ import {
 type UseAmmunitionProps = {
   isGameOver: boolean;
   isPaused: boolean;
-  position: any;
-  bullets: any;
-  setBullets: any;
+  position: { x: number; y: number };
+  bullets: number;
+  setBullets: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const useAmmunition = ({

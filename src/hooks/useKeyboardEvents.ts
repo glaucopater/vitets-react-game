@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 
 type UseKeyboardEventsProps = {
   isGameOver: boolean;
   isPaused: boolean;
-  moveUp: any;
-  moveDown: any;
-  moveLeft: any;
-  moveRight: any;
-  pauseGame: any;
+  moveUp: () => void;
+  moveDown: () => void;
+  moveLeft: () => void;
+  moveRight: () => void;
+  pauseGame: () => void;
 };
 export const useKeyboardEvents = ({
   isGameOver,

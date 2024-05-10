@@ -1,15 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { DEFAULT_ENEMY_DAMAGE, PLAYER_MAX_HEALTH, audio } from "../constants";
 import FEATURES from "../features";
 
 type UsePlayerHealthProps = {
-  isGameOver: any;
-  setIsGameOver: any;
-  isPaused: any;
-  position: any;
-  enemies: any;
-  setEnemies: any;
+  isGameOver: boolean;
+  setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  isPaused: boolean;
+  position: { x: number; y: number };
+  enemies: { x: number; y: number }[];
+  setEnemies: React.Dispatch<
+    React.SetStateAction<
+      {
+        x: number;
+        y: number;
+      }[]
+    >
+  >;
 };
 
 export const usePlayerHealth = ({
@@ -27,7 +33,7 @@ export const usePlayerHealth = ({
       const now = Date.now();
       if (lastDamageTime === null || now - lastDamageTime > 1000) {
         const collision = enemies.some(
-          (enemy: { x: any; y: any }) =>
+          (enemy: { x: number; y: number }) =>
             enemy.x === position.x && enemy.y === position.y
         );
         if (collision) {

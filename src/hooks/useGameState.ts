@@ -1,20 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { MAX_BULLETS, WIN_SCORE } from "../constants";
 import { PLAYER_MAX_HEALTH, audio } from "../constants";
 
 type UseGameStateProps = {
   isGameOver: boolean;
-  setIsGameOver: any;
-  setEnemies: any;
-  setPlayerHealth: any;
-  setPosition: any;
-  setIsPaused: any;
-  setLastDamageTime: any;
-  setBullets: any;
+  setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  setEnemies: React.Dispatch<
+    React.SetStateAction<
+      {
+        x: number;
+        y: number;
+      }[]
+    >
+  >;
+  setPlayerHealth: React.Dispatch<React.SetStateAction<number>>;
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      x: number;
+      y: number;
+    }>
+  >;
+  setIsPaused: React.Dispatch<React.SetStateAction<boolean>>;
+  setLastDamageTime: React.Dispatch<React.SetStateAction<number>>;
+  setBullets: React.Dispatch<React.SetStateAction<number>>;
   isPaused: boolean;
-  bullets: any;
-  enemies: any;
+  bullets: number;
+  enemies: { x: number; y: number }[];
 };
 
 export const useGameState = ({
@@ -40,16 +51,16 @@ export const useGameState = ({
     setPlayerHealth(PLAYER_MAX_HEALTH);
     setScore(0);
     setIsPaused(false);
-    setLastDamageTime(null);
+    setLastDamageTime(0);
     setBullets(MAX_BULLETS);
   };
 
   const pauseGame = () => {
-    setIsPaused((prevPaused: any) => !prevPaused);
+    setIsPaused((prevPaused: boolean) => !prevPaused);
   };
 
   const handleMouseDown = (e: {
-    currentTarget: { getBoundingClientRect: () => any };
+    currentTarget: { getBoundingClientRect: () => DOMRect };
     clientX: number;
     clientY: number;
   }) => {
@@ -86,7 +97,7 @@ export const useGameState = ({
     if (score >= WIN_SCORE) {
       setIsGameOver(true);
     }
-  }, [score]);
+  }, [score, setIsGameOver]);
 
   const handlePauseModalClose = () => {
     setIsPaused(false);

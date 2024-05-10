@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import FEATURES from "../features/";
 
 export const useEnemies = (
-  isGameOver: any,
-  isPaused: any,
+  isGameOver: boolean,
+  isPaused: boolean,
   playerPositionRef: { current: { x: number; y: number } }
 ) => {
   const [enemies, setEnemies] = useState<{ x: number; y: number }[]>([]);

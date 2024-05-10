@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import {
   PLAYER_MAX_HEALTH,
@@ -13,7 +12,7 @@ type UseMedikitsProps = {
   isPaused: boolean;
   position: { x: number; y: number };
   playerHealth: number;
-  setPlayerHealth: any;
+  setPlayerHealth: React.Dispatch<React.SetStateAction<number>>;
 };
 export const useMedikits = ({
   isGameOver,
