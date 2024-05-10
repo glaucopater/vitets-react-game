@@ -1,10 +1,10 @@
-import { MEDIKIT_AVATAR } from "../../constants";
+import { POWERUPS_AVATARS } from "../../constants";
 
-interface MedikitProps {
-  medikit: { x: number; y: number };
+interface PowerUpProps {
+  powerupPosition: { x: number; y: number };
 }
 
-const Medikit = ({ medikit }: MedikitProps) => {
+const PowerUp = ({ powerupPosition: medikit }: PowerUpProps) => {
   return (
     <div
       style={{
@@ -16,10 +16,10 @@ const Medikit = ({ medikit }: MedikitProps) => {
       }}
     >
       <span aria-label="medikit" role="img" style={{ fontSize: 20 }}>
-        {MEDIKIT_AVATAR}
+        {POWERUPS_AVATARS[0]}
       </span>
     </div>
   );
 };
 
-export default Medikit;
+export default PowerUp;

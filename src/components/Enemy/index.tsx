@@ -1,4 +1,4 @@
-import { ENEMY_AVATAR } from "../../constants";
+import { ENEMY_AVATARS } from "../../constants";
 import "./Enemy.css";
 export const Enemy = ({
   enemy,
@@ -20,7 +20,7 @@ export const Enemy = ({
       }}
     >
       <span aria-label="enemy" role="img" style={{ fontSize: 20 }}>
-        {ENEMY_AVATAR}
+        {ENEMY_AVATARS[0]}
       </span>
     </div>
   );
