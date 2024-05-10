@@ -58,7 +58,7 @@ export const useMedikits = ({
       }
     };
     collectMedikit();
-  }, [position, medikits]);
+  }, [position, medikits, setPlayerHealth]);
 
   return { medikits, setMedikits };
 };
