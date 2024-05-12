@@ -6,6 +6,7 @@ import {
   MIN_LEFT_X,
   MIN_BOTTOM_Y,
 } from "../constants";
+import { playSound } from "../helpers";
 
 type UseMedikitsProps = {
   isGameOver: boolean;
@@ -49,6 +50,7 @@ export const useMedikits = ({
       if (index !== -1) {
         const updatedMedikits = [...medikits];
         updatedMedikits.splice(index, 1);
+        playSound("powerup");
         setMedikits(updatedMedikits);
         setPlayerHealth((prevHealth: number) =>
           prevHealth + MEDIKIT_HEALTH_INCREASE > PLAYER_MAX_HEALTH

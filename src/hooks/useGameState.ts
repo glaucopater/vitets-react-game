@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { MAX_BULLETS, WIN_SCORE } from "../constants";
-import { PLAYER_MAX_HEALTH, audio } from "../constants";
+import { PLAYER_MAX_HEALTH } from "../constants";
+import { playSound } from "../helpers";
 
 type UseGameStateProps = {
   isGameOver: boolean;
@@ -69,9 +70,7 @@ export const useGameState = ({
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
     setIsShooting(true);
-    audio.shoot1.volume = 0.3;
-    audio.shoot1.currentTime = 0.2;
-    audio.shoot1.play();
+    playSound("shotgun");
     setBullets((prevBullets: number) => prevBullets - 1);
     const clickedEnemyIndex = enemies.findIndex(
       (enemy: { x: number; y: number }) =>

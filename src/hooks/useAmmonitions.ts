@@ -3,10 +3,10 @@ import {
   MAX_BULLETS,
   AMMO_INCREASE,
   RANDOM_RANGE_INTERVAL,
-  audio,
   MIN_LEFT_X,
   MIN_BOTTOM_Y,
 } from "../constants";
+import { playSound } from "../helpers";
 
 type UseAmmunitionProps = {
   isGameOver: boolean;
@@ -54,8 +54,7 @@ export const useAmmunition = ({
       if (index !== -1) {
         const updatedAmmunitions = [...ammunitions];
         updatedAmmunitions.splice(index, 1);
-        audio.hit1.currentTime = 0.2;
-        audio.hit1.play();
+        playSound("loadAmmo");
         setAmmunitions(updatedAmmunitions);
         if (bullets < MAX_BULLETS)
           setBullets((prevBullets: number) =>

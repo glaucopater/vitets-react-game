@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { DEFAULT_ENEMY_DAMAGE, PLAYER_MAX_HEALTH, audio } from "../constants";
+import { DEFAULT_ENEMY_DAMAGE, PLAYER_MAX_HEALTH } from "../constants";
 import FEATURES from "../features";
+import { playSound } from "../helpers";
 
 type UsePlayerHealthProps = {
   isGameOver: boolean;
@@ -38,9 +39,7 @@ export const usePlayerHealth = ({
         );
         if (collision) {
           setLastDamageTime(now);
-          audio.hit2.volume = 0.1;
-          audio.hit2.currentTime = 0;
-          audio.hit2.play();
+          playSound("damage", 0.3);
           if (!FEATURES.ALLOW_PLAYER_IMMORTAL)
             setPlayerHealth((prevHealth) =>
               Math.max(prevHealth - DEFAULT_ENEMY_DAMAGE, 0)
