@@ -15,6 +15,7 @@ import { useGameState } from "../../hooks/useGameState";
 import { usePlayerMovement } from "../../hooks/usePlayerMovement";
 import { useState } from "react";
 import { MAX_BULLETS, WIN_SCORE } from "../../constants";
+import { Controls } from "../Controls";
 
 const Game = () => {
   const initialPosition = { x: 9, y: 9 };
@@ -119,30 +120,13 @@ const Game = () => {
           ))}
       </Area>
       <Hud playerHealth={playerHealth} bullets={bullets} />
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={() => moveUp()}>Up</button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "0 20px",
-        }}
-      >
-        <button onClick={() => moveLeft()}>Left</button>
-        <button onClick={() => moveRight()}>Right</button>
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={() => moveDown()}>Down</button>
-      </div>
-
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
-      >
-        <button style={{ width: "100%" }} onClick={() => pauseGame()}>
-          Pause
-        </button>
-      </div>
+      <Controls
+        moveUp={moveUp}
+        moveLeft={moveLeft}
+        moveRight={moveRight}
+        moveDown={moveDown}
+        pauseGame={pauseGame}
+      />
 
       <Modal isOpen={isGameOver} onClose={resetGame}>
         <h2>{score >= WIN_SCORE ? "You Win!" : "Game Over!"}</h2>
