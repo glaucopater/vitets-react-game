@@ -1,6 +1,14 @@
-# React + TypeScript + Vite = Game!
+# React + TypeScript + Vite = A Shooter Game!
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/43279ffe-701c-4a87-82ec-d1c860db5ccd/deploy-status)](https://app.netlify.com/sites/vitets-react-game/deploys)
+
+
+Live Demo 👽
+
+https://vitets-react-game.netlify.app
+
+![Demo](/public/demo.png)
+
 
 1. **Movement**: Use the arrow keys on your keyboard to move the character (represented by a red square) up, down, left, or right within the game area.
 
