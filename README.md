@@ -13,3 +13,18 @@
 5. **Game Over**: If your character collides with an enemy, the game will end. You will see a "Game Over!" message along with your final score. You can restart the game by clicking the "Restart" button in the modal.
 
 Enjoy playing the game!
+
+
+
+# Credits
+
+Sounds:
+
+Sound Effect by <a href="https://pixabay.com/users/floraphonic-38928062/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=177983">floraphonic</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=177983">Pixabay</a>
+
+Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6787">Pixabay</a>
+
+
+Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=39753">Pixabay</a>
+
+Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=48124">Pixabay</a>
