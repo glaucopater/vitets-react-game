@@ -17,6 +17,7 @@ import { useState } from "react";
 import { MAX_BULLETS, WIN_SCORE } from "../../constants";
 import { Controls } from "../Controls";
 import useLineToMouse from "../../hooks/useLineToMouse";
+import { TrailToTarget } from "../TrailToTarget";
 
 const Game = () => {
   const initialPosition = { x: 9, y: 9 };
@@ -100,7 +101,12 @@ const Game = () => {
 
   const getPositionRect = () => {
     if (refPlayerPosition) {
-      return refPlayerPosition?.getBoundingClientRect();
+      return refPlayerPosition?.getBoundingClientRect() as {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+      };
     } else {
       return { x: 0, y: 0, width: 0, height: 0 };
     }
@@ -113,25 +119,12 @@ const Game = () => {
         handleMouseUp={handleMouseUp}
         isShooting={isShooting}
       >
-        <svg
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            pointerEvents: "none",
-          }}
-        >
-          <line
-            x1={getPositionRect().x}
-            y1={getPositionRect().y}
-            x2={mousePosition.x}
-            y2={mousePosition.y}
-            stroke="white"
-            strokeWidth="2"
+        {!isPaused && (
+          <TrailToTarget
+            rect={getPositionRect()}
+            mousePosition={mousePosition}
           />
-        </svg>
+        )}
         <Player
           position={position}
           health={playerHealth}
