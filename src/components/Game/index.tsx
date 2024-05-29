@@ -16,6 +16,8 @@ import { usePlayerMovement } from "../../hooks/usePlayerMovement";
 import { useState } from "react";
 import { MAX_BULLETS, WIN_SCORE } from "../../constants";
 import { Controls } from "../Controls";
+import useLineToMouse from "../../hooks/useLineToMouse";
+import { TrailToTarget } from "../TrailToTarget";
 
 const Game = () => {
   const initialPosition = { x: 9, y: 9 };
@@ -31,6 +33,10 @@ const Game = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [bullets, setBullets] = useState(MAX_BULLETS);
+
+  const [refPlayerPosition, setRefPlayerPosition] =
+    useState<HTMLDivElement | null>(null);
+  const { mousePosition } = useLineToMouse();
 
   const { enemies, setEnemies } = useEnemies(
     isGameOver,
@@ -93,6 +99,19 @@ const Game = () => {
     pauseGame,
   });
 
+  const getPositionRect = () => {
+    if (refPlayerPosition) {
+      return refPlayerPosition?.getBoundingClientRect() as {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+      };
+    } else {
+      return { x: 0, y: 0, width: 0, height: 0 };
+    }
+  };
+
   return (
     <div style={{ padding: 0, position: "relative" }}>
       <Area
@@ -100,7 +119,19 @@ const Game = () => {
         handleMouseUp={handleMouseUp}
         isShooting={isShooting}
       >
-        <Player position={position} health={playerHealth} isPaused={isPaused} />
+        {!isPaused && (
+          <TrailToTarget
+            rect={getPositionRect()}
+            mousePosition={mousePosition}
+          />
+        )}
+        <Player
+          position={position}
+          health={playerHealth}
+          isPaused={isPaused}
+          refPlayerPosition={refPlayerPosition}
+          setRefPlayerPosition={setRefPlayerPosition}
+        />
         {FEATURES.ALLOW_ENEMIES &&
           enemies.map((enemy, index) => (
             <Enemy

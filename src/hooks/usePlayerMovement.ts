@@ -1,10 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { MIN_LEFT_X, MIN_BOTTOM_Y } from "../constants";
+import { useState, useEffect, useRef } from 'react';
+import { MIN_LEFT_X, MIN_BOTTOM_Y } from '../constants';
 
-export const usePlayerMovement = (initialPosition: {
-  x: number;
-  y: number;
-}) => {
+export const usePlayerMovement = (initialPosition: { x: number; y: number }) => {
   const [position, setPosition] = useState(initialPosition);
   const playerPositionRef = useRef(initialPosition);
 

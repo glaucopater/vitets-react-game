@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import "./CustomCursor.css";
-import { FIRE_AVATAR, TARGET_AVATAR } from "../../constants";
-import "./CustomCursor.css";
+import { useState, useEffect } from 'react';
+import './CustomCursor.css';
+import { FIRE_AVATAR, TARGET_AVATAR } from '../../constants';
+import './CustomCursor.css';
 
 export const CustomCursor = ({ isShooting }: { isShooting: boolean }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -11,10 +11,10 @@ export const CustomCursor = ({ isShooting }: { isShooting: boolean }) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
