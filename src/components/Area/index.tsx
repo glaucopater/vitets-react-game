@@ -1,6 +1,6 @@
-import { useState } from "react";
-import "./Area.css";
-import CustomCursor from "../CustomCursor";
+import { useState } from 'react';
+import './Area.css';
+import CustomCursor from '../CustomCursor';
 export const Area = ({
   handleMouseDown,
   handleMouseUp,
