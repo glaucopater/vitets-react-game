@@ -8,7 +8,7 @@ const ALLOW_PLAYER_IMMORTAL =
 */
 
 export default {
-  ALLOW_ENEMIES: false,
+  ALLOW_ENEMIES: true,
   ALLOW_POWERUPS: true,
   ALLOW_PLAYER_IMMORTAL: false,
 };
