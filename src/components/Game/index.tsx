@@ -1,21 +1,22 @@
-import Modal from "../Modal";
-import { Player } from "../Player";
-import { Enemy } from "../Enemy";
-import Ammo from "../Ammo";
-import PowerUp from "../PowerUp";
-import { Area } from "../Area";
-import { Hud } from "../Hud";
-import FEATURES from "../../features";
-import { usePlayerHealth } from "../../hooks/usePlayerHealth";
-import { useEnemies } from "../../hooks/useEnemies";
-import { useAmmunition } from "../../hooks/useAmmonitions";
-import { useMedikits } from "../../hooks/useMedikits";
-import { useKeyboardEvents } from "../../hooks/useKeyboardEvents";
-import { useGameState } from "../../hooks/useGameState";
-import { usePlayerMovement } from "../../hooks/usePlayerMovement";
-import { useState } from "react";
-import { MAX_BULLETS, WIN_SCORE } from "../../constants";
-import { Controls } from "../Controls";
+import Modal from '../Modal';
+import { Player } from '../Player';
+import { Enemy } from '../Enemy';
+import Ammo from '../Ammo';
+import PowerUp from '../PowerUp';
+import { Area } from '../Area';
+import { Hud } from '../Hud';
+import FEATURES from '../../features';
+import { usePlayerHealth } from '../../hooks/usePlayerHealth';
+import { useEnemies } from '../../hooks/useEnemies';
+import { useAmmunition } from '../../hooks/useAmmonitions';
+import { useMedikits } from '../../hooks/useMedikits';
+import { useKeyboardEvents } from '../../hooks/useKeyboardEvents';
+import { useGameState } from '../../hooks/useGameState';
+import { usePlayerMovement } from '../../hooks/usePlayerMovement';
+import { useState } from 'react';
+import { MAX_BULLETS, WIN_SCORE } from '../../constants';
+import { Controls } from '../Controls';
+import useLineToMouse from '../../hooks/useLineToMouse';
 
 const Game = () => {
   const initialPosition = { x: 9, y: 9 };
@@ -31,12 +32,11 @@ const Game = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [bullets, setBullets] = useState(MAX_BULLETS);
+  const { mousePosition, playerPosition: newPlayerPosition } = useLineToMouse({
+    startingPosition: position,
+  });
 
-  const { enemies, setEnemies } = useEnemies(
-    isGameOver,
-    isPaused,
-    playerPositionRef
-  );
+  const { enemies, setEnemies } = useEnemies(isGameOver, isPaused, playerPositionRef);
   const { playerHealth, setPlayerHealth, setLastDamageTime } = usePlayerHealth({
     isGameOver,
     setIsGameOver,
@@ -93,22 +93,38 @@ const Game = () => {
     pauseGame,
   });
 
+  console.log(position, newPlayerPosition);
+
   return (
-    <div style={{ padding: 0, position: "relative" }}>
+    <div style={{ padding: 0, position: 'relative' }}>
       <Area
         handleMouseDown={handleMouseDown}
         handleMouseUp={handleMouseUp}
         isShooting={isShooting}
       >
+        <svg
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            pointerEvents: 'none',
+          }}
+        >
+          <line
+            x1={newPlayerPosition.x}
+            y1={newPlayerPosition.y}
+            x2={mousePosition.x}
+            y2={mousePosition.y}
+            stroke="white"
+            strokeWidth="2"
+          />
+        </svg>
         <Player position={position} health={playerHealth} isPaused={isPaused} />
         {FEATURES.ALLOW_ENEMIES &&
           enemies.map((enemy, index) => (
-            <Enemy
-              key={index}
-              enemy={enemy}
-              id={index.toString()}
-              isPaused={isPaused}
-            />
+            <Enemy key={index} enemy={enemy} id={index.toString()} isPaused={isPaused} />
           ))}
         {FEATURES.ALLOW_POWERUPS &&
           ammunitions.map((ammunition, index) => (
@@ -129,7 +145,7 @@ const Game = () => {
       />
 
       <Modal isOpen={isGameOver} onClose={resetGame}>
-        <h2>{score >= WIN_SCORE ? "You Win!" : "Game Over!"}</h2>
+        <h2>{score >= WIN_SCORE ? 'You Win!' : 'Game Over!'}</h2>
         <p>Your score: {score}</p>
         <button onClick={resetGame}>Restart</button>
       </Modal>
