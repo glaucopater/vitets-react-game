@@ -20,7 +20,7 @@ export const usePlayerMovement = (
     for (let dx = 0; dx < playerWidth; dx++) {
       for (let dy = 0; dy < playerHeight; dy++) {
         if (
-          walls.some((wall) =>
+          walls?.some((wall) =>
             wall.wallCoordinates.some(
               (coordinate) =>
                 coordinate.x === newPosition.x + dx &&

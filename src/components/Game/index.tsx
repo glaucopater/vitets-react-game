@@ -14,7 +14,15 @@ import { useKeyboardEvents } from "../../hooks/useKeyboardEvents";
 import { useGameState } from "../../hooks/useGameState";
 import { usePlayerMovement } from "../../hooks/usePlayerMovement";
 import { useState } from "react";
-import { MAX_BULLETS, WIN_SCORE } from "../../constants";
+import {
+  MAX_BULLETS,
+  WIN_SCORE,
+  DEFAULT_PLAYER_WIDTH,
+  DEFAULT_PLAYER_HEIGHT,
+  DEFAULT_ENEMY_WIDTH,
+  DEFAULT_ENEMY_HEIGHT,
+  defaultWalls,
+} from "../../constants";
 import { Controls } from "../Controls";
 import useLineToMouse from "../../hooks/useLineToMouse";
 import { TrailToTarget } from "../TrailToTarget";
@@ -23,25 +31,7 @@ import Wall from "../Wall";
 
 const Game = () => {
   const initialPosition = { x: 9, y: 9 };
-  const walls: WallProps[] = [
-    {
-      wallCoordinates: [
-        { x: 1, y: 1 },
-        { x: 1, y: 2 },
-        { x: 1, y: 3 },
-      ],
-    },
-    {
-      wallCoordinates: [
-        { x: 17, y: 10 },
-        { x: 18, y: 10 },
-        { x: 19, y: 10 },
-      ],
-    },
-  ];
-
-  const playerWidth = 2;
-  const playerHeight = 2;
+  const walls: WallProps[] = defaultWalls;
 
   const {
     position,
@@ -51,7 +41,12 @@ const Game = () => {
     moveDown,
     moveUp,
     setPosition,
-  } = usePlayerMovement(initialPosition, playerWidth, playerHeight, walls);
+  } = usePlayerMovement(
+    initialPosition,
+    DEFAULT_PLAYER_WIDTH,
+    DEFAULT_PLAYER_HEIGHT,
+    walls
+  );
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [bullets, setBullets] = useState(MAX_BULLETS);
@@ -63,7 +58,10 @@ const Game = () => {
   const { enemies, setEnemies } = useEnemies(
     isGameOver,
     isPaused,
-    playerPositionRef
+    playerPositionRef,
+    walls,
+    DEFAULT_ENEMY_WIDTH,
+    DEFAULT_ENEMY_HEIGHT
   );
   const { playerHealth, setPlayerHealth, setLastDamageTime } = usePlayerHealth({
     isGameOver,
