@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import FEATURES from "../features/";
+import { Position } from "../types";
 
 export const useEnemies = (
   isGameOver: boolean,
   isPaused: boolean,
-  playerPositionRef: { current: { x: number; y: number } }
+  playerPositionRef: { current: Position }
 ) => {
-  const [enemies, setEnemies] = useState<{ x: number; y: number }[]>([]);
+  const [enemies, setEnemies] = useState<Position[]>([]);
 
   useEffect(() => {
     if (!FEATURES.ALLOW_ENEMIES) return;

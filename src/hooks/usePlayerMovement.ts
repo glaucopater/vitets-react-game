@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-import { MIN_LEFT_X, MIN_BOTTOM_Y } from '../constants';
+import { useState, useEffect, useRef } from "react";
+import { MIN_LEFT_X, MIN_BOTTOM_Y } from "../constants";
+import { Position } from "../types";
 
-export const usePlayerMovement = (initialPosition: { x: number; y: number }) => {
+export const usePlayerMovement = (initialPosition: Position) => {
   const [position, setPosition] = useState(initialPosition);
   const playerPositionRef = useRef(initialPosition);
 
@@ -10,14 +11,14 @@ export const usePlayerMovement = (initialPosition: { x: number; y: number }) => 
   }, [position]);
 
   const moveRight = () => {
-    setPosition((prev: { x: number; y: number }) => ({
+    setPosition((prev: Position) => ({
       ...prev,
       x: Math.min(MIN_LEFT_X, prev.x + 1),
     }));
   };
 
   const moveLeft = () => {
-    setPosition((prev: { x: number; y: number }) => ({
+    setPosition((prev: Position) => ({
       ...prev,
       x: Math.max(0, prev.x - 1),
     }));
