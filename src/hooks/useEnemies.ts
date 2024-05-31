@@ -72,6 +72,7 @@ export const useEnemies = (
     }, 1000);
 
     return () => clearInterval(moveInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enemies, isGameOver, isPaused, playerPositionRef]);
 
   return { enemies, setEnemies };
