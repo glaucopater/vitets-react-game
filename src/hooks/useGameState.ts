@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MAX_BULLETS, WIN_SCORE } from "../constants";
 import { PLAYER_MAX_HEALTH } from "../constants";
 import { playSound } from "../helpers";
-import { Position } from "../types";
+import { Position } from "../custom-types";
 
 type UseGameStateProps = {
   isGameOver: boolean;

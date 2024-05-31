@@ -18,9 +18,31 @@ import { MAX_BULLETS, WIN_SCORE } from "../../constants";
 import { Controls } from "../Controls";
 import useLineToMouse from "../../hooks/useLineToMouse";
 import { TrailToTarget } from "../TrailToTarget";
+import { WallProps } from "../Wall/index";
+import Wall from "../Wall";
 
 const Game = () => {
   const initialPosition = { x: 9, y: 9 };
+  const walls: WallProps[] = [
+    {
+      wallCoordinates: [
+        { x: 1, y: 1 },
+        { x: 1, y: 2 },
+        { x: 1, y: 3 },
+      ],
+    },
+    {
+      wallCoordinates: [
+        { x: 17, y: 10 },
+        { x: 18, y: 10 },
+        { x: 19, y: 10 },
+      ],
+    },
+  ];
+
+  const playerWidth = 2;
+  const playerHeight = 2;
+
   const {
     position,
     playerPositionRef,
@@ -29,7 +51,7 @@ const Game = () => {
     moveDown,
     moveUp,
     setPosition,
-  } = usePlayerMovement(initialPosition);
+  } = usePlayerMovement(initialPosition, playerWidth, playerHeight, walls);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [bullets, setBullets] = useState(MAX_BULLETS);
@@ -148,6 +170,11 @@ const Game = () => {
         {FEATURES.ALLOW_POWERUPS &&
           medikits.map((medikit, index) => (
             <PowerUp key={index} powerupPosition={medikit} />
+          ))}
+
+        {FEATURES.ALLOW_WALLS &&
+          walls.map((wall, index) => (
+            <Wall key={index} wallCoordinates={wall.wallCoordinates} />
           ))}
       </Area>
       <Hud playerHealth={playerHealth} bullets={bullets} />

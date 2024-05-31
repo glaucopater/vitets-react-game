@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { DEFAULT_ENEMY_DAMAGE, PLAYER_MAX_HEALTH } from "../constants";
 import FEATURES from "../features";
 import { playSound } from "../helpers";
-import { Position } from "../types";
+import { Position } from "../custom-types";
 
 type UsePlayerHealthProps = {
   isGameOver: boolean;

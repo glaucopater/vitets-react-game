@@ -1,6 +1,6 @@
 import { ENEMY_AVATARS } from "../../constants";
 import "./Enemy.css";
-import { Position } from "../../types";
+import { Position } from "../../custom-types";
 
 export const Enemy = ({
   enemy,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import FEATURES from "../features/";
-import { Position } from "../types";
+import { Position } from "../custom-types";
 
 export const useEnemies = (
   isGameOver: boolean,

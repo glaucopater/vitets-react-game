@@ -7,7 +7,7 @@ import {
   MIN_BOTTOM_Y,
 } from "../constants";
 import { playSound } from "../helpers";
-import { Position } from "../types";
+import { Position } from "../custom-types";
 
 type UseMedikitsProps = {
   isGameOver: boolean;

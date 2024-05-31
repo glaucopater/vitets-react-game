@@ -1,4 +1,4 @@
-import { Position } from "../../types";
+import { Position } from "../../custom-types";
 
 export const TrailToTarget = ({
   rect,

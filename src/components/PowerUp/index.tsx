@@ -1,5 +1,5 @@
 import { POWERUPS_AVATARS } from "../../constants";
-import { Position } from "../../types";
+import { Position } from "../../custom-types";
 
 interface PowerUpProps {
   powerupPosition: Position;

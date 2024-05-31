@@ -1,5 +1,5 @@
 import { AMMO_AVATAR } from "../../constants";
-import { Position } from "../../types";
+import { Position } from "../../custom-types";
 
 interface AmmoProps {
   ammunition: Position;

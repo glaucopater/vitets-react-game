@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { getPlayerAvatar } from "../../helpers";
 import "./Player.css";
-import { Position } from "../../types";
+import { Position } from "../../custom-types";
 
 type PlayerProps = {
   position: Position;
